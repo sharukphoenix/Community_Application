@@ -24,7 +24,7 @@ jobs:
         php-version: '7.4' # Adjust PHP version as needed
 
     - name: Install Composer dependencies
-      run: composer install --no-progress --no-suggest --no-interaction
+      run: composer install 
 
     - name: Cache Composer dependencies
       uses: actions/cache@v2
