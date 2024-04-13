@@ -21,10 +21,18 @@ jobs:
     - name: Setup PHP
       uses: shivammathur/setup-php@v2
       with:
-        php-version: '7.4'
+        php-version: '7.4' # Adjust PHP version as needed
 
-    - name: Install dependencies
-      run: composer install
+    - name: Install Composer dependencies
+      run: composer install --no-progress --no-suggest --no-interaction
 
-    - name: Run tests
+    - name: Cache Composer dependencies
+      uses: actions/cache@v2
+      with:
+        path: ~/.composer/cache/files
+        key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-composer-
+
+    - name: Run PHPUnit tests
       run: vendor/bin/phpunit
