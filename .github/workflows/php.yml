@@ -1,23 +1,30 @@
-name: Validate Composer Files
+name: PHP Workflow
+
 on:
+  push:
+    branches:
+      - main
+      - master
   pull_request:
     branches:
       - main
       - master
 
 jobs:
-  validate-composer:
+  build:
     runs-on: ubuntu-latest
-
+    
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
-      
-    - name: Validate composer.json
-      run: composer validate --no-check-all --strict
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '7.4'
 
     - name: Install dependencies
-      run: composer install --no-progress --no-suggest
+      run: composer install
 
-    - name: Validate composer.lock
-      run: composer validate --no-check-all --strict --no-interaction --with-dependencies
+    - name: Run tests
+      run: vendor/bin/phpunit
