@@ -1,5 +1,5 @@
 {
-    "name": "your-project-name",
+    "name": "community-application",
     "require": {
         "php": "^7.4",
         "phpunit/phpunit": "^9.5", 
